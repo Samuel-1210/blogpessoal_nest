@@ -16,6 +16,7 @@ export class PostagemService {
     return await this.postagemRepository.find({
       relations: {
         tema: true,
+        usuario:true,
       },
     }); // select * from tb_postagens;
   }
@@ -27,6 +28,7 @@ export class PostagemService {
       },
       relations: {
         tema: true,
+        usuario:true,
       },
     });
     if (!postagem)
@@ -41,6 +43,7 @@ export class PostagemService {
       },
       relations: {
         tema: true,
+        usuario:true,
       },
     }); // select * from tb_postagens;
   }
@@ -53,9 +56,9 @@ export class PostagemService {
   }
 
   async update(postagem: Postagem): Promise<Postagem> {
+    
     await this.findById(postagem.id);
 
-    await this.temaService.findById(postagem.tema.id);
     // UPDATE  tb_postagens SET postagem.titulo = ?, postagem.texto =?, data= current_timestamp() where id = postagem.idl
     return await this.postagemRepository.save(postagem);
   }
@@ -67,3 +70,5 @@ export class PostagemService {
     return await this.postagemRepository.delete(id);
   }
 }
+
+
