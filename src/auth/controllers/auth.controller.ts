@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { LocalAuthGuard } from '../guard/local-auth.guard';
 import { AuthService } from '../services/auth.service';
-import { UsuarioLogin } from '../entitites/usuariologin.entity';
+import { UsuarioLogin } from '../entities/usuariologin.entity';
 
 @Controller('/usuarios')
 export class AuthController {

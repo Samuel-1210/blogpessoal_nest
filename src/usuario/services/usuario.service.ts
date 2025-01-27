@@ -13,7 +13,7 @@ export class UsuarioService {
     ) { }
 
     async findByUsuario(usuario: string): Promise<Usuario | undefined> {
-        return await this.usuarioRepository.findOne({
+        return  this.usuarioRepository.findOne({
             where: {
                 usuario: usuario
             }
@@ -52,18 +52,20 @@ export class UsuarioService {
 
     }
 
-    async update(usuario: Usuario): Promise<Usuario> {
+    
+
+    async update(usuario: Usuario): Promise<Usuario>{
 
         await this.findById(usuario.id);
 
-        const buscaUsuario = await this.findByUsuario(usuario.usuario);
+        const buscaUsuario = await this.findByUsuario(usuario.usuario)
 
-        if (buscaUsuario && buscaUsuario.id !== usuario.id)
-            throw new HttpException('Usuário (e-mail) já Cadastrado!', HttpStatus.BAD_REQUEST);
+        if(buscaUsuario && buscaUsuario.id !== usuario.id)
+            throw new HttpException("Usuário (e-mail) já cadastrado!", HttpStatus.BAD_REQUEST)
 
-        usuario.senha = await this.bcrypt.criptografarSenha(usuario.senha)
+        usuario.senha = await this.bcrypt.criptografarSenha(usuario.senha);
+        
         return await this.usuarioRepository.save(usuario);
-
     }
 
 }
